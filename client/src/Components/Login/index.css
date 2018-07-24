@@ -1,0 +1,24 @@
+.login-container {
+  position: relative;
+  padding-top: 170px;
+  text-align: center;
+  height: 100vh;
+  color: white;
+}
+
+.face-login-wrap {
+  height: 200px;
+  width: 150px;
+  margin: 20% auto 20% auto;
+}
+
+.login-box {
+  position: absolute;
+  width: 215px;
+  height: 193px;
+  left: 49%;
+  top: 32.7%;
+  border-bottom-right-radius: 20px;
+  background-color: white;
+  padding: 20px 0px 0px 0px;
+}
