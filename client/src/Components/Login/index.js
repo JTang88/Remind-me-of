@@ -56,7 +56,7 @@ const Login = ({ userStore: { insertUserInfo }, history, location, classes: { ti
         <div className="face-login-wrap">
           <FacebookLogin
             appId="237618007038254"
-            fields="name,email,picture.width(150).height(150)"
+            fields="name,email,picture.width(120).height(120)"
             callback={responseFacebook}
           />
         </div>

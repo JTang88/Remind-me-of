@@ -1,0 +1,18 @@
+.main-container {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  border: solid 3px #7ed6df;
+  margin-bottom: 20px;
+}
+
+.main-content-container {
+  background-color: #7ed6df;
+  margin-top: 20px;
+  height: 100vh;
+  padding: 30px;
+} 
+
