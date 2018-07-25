@@ -2,6 +2,7 @@ import React from 'react';
 import FacebookLogin from 'react-facebook-login'
 import { observer, inject } from 'mobx-react';
 import { Typography, withStyles } from '@material-ui/core';
+import axios from 'axios'
 import './index.css'
 
 const styles = {
@@ -16,6 +17,11 @@ const Login = ({ userStore: { insertUserInfo }, history, location, classes: { ti
 
   const responseFacebook = async (response) => {
     insertUserInfo(response);
+    const { data } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/fetch-user`, {
+      _id: response.id,
+    });
+
+    console.log('here is data in Login', data)
     await sessionStorage.setItem('authenticated', 'true')
     if (location.from) {
       history.push(`${location.from}`);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { inject, observer } from 'mobx-react';
+import axios from 'axios';
 import { withStyles, TextField, Button } from '@material-ui/core';
-import './index.css';
 
 const styles = {
   textRoot: {
@@ -12,6 +13,9 @@ const styles = {
   }
 }
 
+@inject('userStore')
+@observer
+
 class Add extends Component {
   state = {
     thought: '',
@@ -21,6 +25,16 @@ class Add extends Component {
     this.setState({
       [e.target.name]: e.target.value
     })
+  }
+
+  handleSubmit = async () => {
+    const { data } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/new-thought`, {
+      _id: this.props.userStore.id,
+      text: this.state.thought,
+    });
+
+    //update the store with updated data
+    this.props.handleCancel();
   }
 
   render () {
@@ -43,7 +57,7 @@ class Add extends Component {
         <Button className={button} variant='outlined' color='inherit' onClick={handleCancel}>
           Cancel
           </Button>
-        <Button className={button} variant='outlined' color='inherit'>
+        <Button className={button} variant='outlined' color='inherit' onClick={this.handleSubmit}>
           Submit
         </Button>
       </div>
