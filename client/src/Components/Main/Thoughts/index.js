@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 import { getTimeStamp } from '../../../lib/index';
+import './index.css';
 
 
 const styles = {
@@ -55,8 +56,7 @@ const styles = {
 
 class Thoughts extends Component {
   handleEdit = (thoughtId) => {
-    console.log('let us edit')
-   
+    this.props.history.push(`/edit/${thoughtId}`)   
   }
 
   handleAdd = () => {
@@ -64,7 +64,7 @@ class Thoughts extends Component {
   }
 
   handleDelete = async (thoughtId) => {
-    axios.delete(`${process.env.REACT_APP_REST_SERVER_URL}/api/delete-thought`, {
+    axios.delete(`${process.env.REACT_APP_REST_SERVER_URL}/api/thought`, {
       params: {
         thoughtId,
         userId: this.props.userStore.id

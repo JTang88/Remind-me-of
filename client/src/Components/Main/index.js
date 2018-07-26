@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import Thoughts from './Thoughts';
 import Reminds from '../Main/Reminds';
 import Add from '../Main/Thoughts/Add';
+import Edit from '../Main/Thoughts/Edit';
 import './index.css'; 
 
 @inject('userStore')
@@ -39,6 +40,7 @@ class Main extends Component {
             <Route path='/reminds' component={Reminds} />
             <Route exact path='/' component={Thoughts} />
             <Route path='/add' component={Add} />
+            <Route path='/edit/:thoughtId' component={Edit} />
           </Switch>
         </div>
       </div>

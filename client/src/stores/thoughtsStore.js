@@ -26,6 +26,22 @@ class ThoughtsStore  {
     this.thoughts.unshift(thought)
   }
 
+  @action getThought = (thoughtId) => {
+    for (let i = 0; i < this.thoughts.length; i++) {
+      if (this.thoughts[i]._id === thoughtId) {
+        return this.thoughts[i].text
+      }
+    }  
+  }
+
+  @action replaceThought = (thoughtId, text) => {
+    for (let i = 0; i < this.thoughts.length; i++) {
+      if (this.thoughts[i]._id === thoughtId) {
+        this.thoughts[i].text = text;
+      }
+    }
+  }
+
 }
 
 const hydrate = create({

@@ -16,9 +16,9 @@ const styles = {
 @inject('userStore', 'thoughtsStore')
 @observer
 
-class Add extends Component {
+class Edit extends Component {
   state = {
-    thought: '',
+    thought: this.props.thoughtsStore.getThought(this.props.match.params.thoughtId),
   }
 
   handleChange = (e) => {
@@ -32,23 +32,23 @@ class Add extends Component {
   }
 
   handleSubmit = async () => {
-    const { thoughtsStore: { addThought }, userStore: { id } } = this.props;
-    const { data: { thought } } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/thought`, {
-      _id: id,
-      text: this.state.thought,
+    const { handleCancel, thoughtsStore: { replaceThought }, userStore: { id }, match: { params: { thoughtId } } } = this.props;
+    const { data: { thought: { text } } } = await axios.put(`${process.env.REACT_APP_REST_SERVER_URL}/api/thought`, {
+      thoughtId,
+      userId: id,
+      text: this.state.thought
     });
-    addThought(thought);
+    replaceThought(thoughtId, text);
     this.handleCancel();
   }
 
-  render () {
+  render() {
     const { classes: { textRoot, button } } = this.props;
     return (
       <div className='text-field-container' >
         <TextField
           className={textRoot}
           autoFocus
-          placeholder='Meaningful thoughts that you would like to be reminded of..'
           id="thought"
           name="thought"
           value={this.state.thought}
@@ -65,8 +65,8 @@ class Add extends Component {
           Submit
         </Button>
       </div>
-    ) 
+    )
   }
 }
 
-export default withStyles(styles)(Add);
+export default withStyles(styles)(Edit);
