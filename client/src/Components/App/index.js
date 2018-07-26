@@ -8,8 +8,8 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route exact path='/' component={(props) => (
+        <Route path='/login' component={Login} />
+        <Route path='/' component={(props) => (
           <CheckAuth component={Main} {...props} />
         )} />
       </Switch>
