@@ -4,9 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { Button } from '@material-ui/core'; 
 import Thoughts from './Thoughts';
 import Reminds from '../Main/Reminds';
+import Add from '../Main/Thoughts/Add';
 import './index.css'; 
-
-
 
 @inject('userStore')
 @observer
@@ -38,7 +37,8 @@ class Main extends Component {
         <div className='main-content-container'>
           <Switch>
             <Route path='/reminds' component={Reminds} />
-            <Route path='/' component={Thoughts} />
+            <Route exact path='/' component={Thoughts} />
+            <Route path='/add' component={Add} />
           </Switch>
         </div>
       </div>

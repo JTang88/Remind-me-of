@@ -27,6 +27,10 @@ class Add extends Component {
     })
   }
 
+  handleCancel = () => {
+    this.props.history.push('/')
+  }
+
   handleSubmit = async () => {
     const { handleCancel, thoughtsStore: { addThought }, userStore: { id } } = this.props;
     const { data: { thought } } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/new-thought`, {
@@ -38,7 +42,7 @@ class Add extends Component {
   }
 
   render () {
-    const { handleCancel, classes: { textRoot, button } } = this.props;
+    const { classes: { textRoot, button } } = this.props;
     return (
       <div className='text-field-container' >
         <TextField
@@ -54,7 +58,7 @@ class Add extends Component {
           multiline
           rows={15}
         />
-        <Button className={button} variant='outlined' color='inherit' onClick={handleCancel}>
+        <Button className={button} variant='outlined' color='inherit' onClick={this.handleCancel}>
           Cancel
           </Button>
         <Button className={button} variant='outlined' color='inherit' onClick={this.handleSubmit}>
