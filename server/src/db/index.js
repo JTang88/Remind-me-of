@@ -18,4 +18,8 @@ mongoose.connection.on('disconnected', () => {
 
 const db = mongoose.connection;
 
+// db.models.User.remove({}).exec()
+// db.models.UserThoughts.remove({}).exec()
+
+
 export default db;

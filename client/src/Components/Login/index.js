@@ -13,16 +13,18 @@ const styles = {
   },
 }
 
-const Login = ({ userStore: { insertUserInfo }, history, location, classes: { title } }) => {
+const Login = ({ thoughtsStore: { initalizeThoughts }, userStore: { insertUserInfo }, history, location, classes: { title } }) => {
 
   const responseFacebook = async (response) => {
     insertUserInfo(response);
-    const { data } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/fetch-user`, {
+    sessionStorage.setItem('authenticated', 'true')
+    const { data: { thoughts } } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/fetch-user`, {
       _id: response.id,
     });
-
-    console.log('here is data in Login', data)
-    await sessionStorage.setItem('authenticated', 'true')
+    console.log('here is thoguhts', thoughts)
+    if (thoughts) {
+      initalizeThoughts(thoughts)
+    } 
     if (location.from) {
       history.push(`${location.from}`);
     } else {
@@ -74,4 +76,4 @@ const Login = ({ userStore: { insertUserInfo }, history, location, classes: { ti
 
 const LoginWithStyles = withStyles(styles)(Login);
 
-export default inject('userStore')(observer(LoginWithStyles));
+export default inject('userStore', 'thoughtsStore')(observer(LoginWithStyles));

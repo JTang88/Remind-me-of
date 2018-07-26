@@ -6,6 +6,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import App from './Components/App';
 import registerServiceWorker from './registerServiceWorker';
 import userStore from './stores/userStore';
+import thoughtsStore from './stores/thoughtsStore';
 import theme from './theme';
 import './index.css';
 
@@ -14,6 +15,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Provider
       userStore={userStore}
+      thoughtsStore={thoughtsStore}
     >
       <MuiThemeProvider theme={theme}>
         <App />
