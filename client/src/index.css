@@ -1,6 +1,7 @@
 body {
   background-color: #22a6b3;
   margin: 0;
+  box-sizing: border-box;
   padding: 0;
   color: white;
   font-family: sans-serif;

@@ -13,7 +13,7 @@ const styles = {
   }
 }
 
-@inject('userStore')
+@inject('userStore', 'thoughtsStore')
 @observer
 
 class Add extends Component {
@@ -28,13 +28,13 @@ class Add extends Component {
   }
 
   handleSubmit = async () => {
-    const { data } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/new-thought`, {
-      _id: this.props.userStore.id,
+    const { handleCancel, thoughtsStore: { addThought }, userStore: { id } } = this.props;
+    const { data: { thought } } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/new-thought`, {
+      _id: id,
       text: this.state.thought,
     });
-
-    //update the store with updated data
-    this.props.handleCancel();
+    addThought(thought);
+    handleCancel();
   }
 
   render () {
