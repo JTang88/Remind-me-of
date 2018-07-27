@@ -11,6 +11,7 @@ class ThoughtsStore  {
   @persist('list', Thought) @observable thoughts = [];
 
   @action initalizeThoughts = (thoughts) => {
+    thoughts.reverse()
     this.thoughts = thoughts
   }
 

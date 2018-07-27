@@ -17,7 +17,7 @@ const Login = ({ thoughtsStore: { initalizeThoughts }, userStore: { insertUserIn
 
   const responseFacebook = async (response) => {
     insertUserInfo(response);
-    sessionStorage.setItem('authenticated', 'true')
+    localStorage.setItem('authenticated', 'true')
     const { data: { thoughts } } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/fetch-user`, {
       _id: response.id,
     });

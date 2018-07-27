@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 const CheckAuth = ({ component: Component, ...props }) => 
-  sessionStorage.getItem('authenticated') === 'true' ? 
+  localStorage.getItem('authenticated') === 'true' ? 
     <Component {...props} /> : 
     <Redirect 
       to={{
