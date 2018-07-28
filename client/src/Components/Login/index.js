@@ -21,7 +21,7 @@ const Login = ({ thoughtsStore: { initalizeThoughts }, userStore: { insertUserIn
     const { data: { thoughts } } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/fetch-user`, {
       _id: response.id,
     });
-    console.log('here is thoguhts', thoughts)
+    console.log('here are thoughts', thoughts)
     if (thoughts) {
       initalizeThoughts(thoughts)
     } 

@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 
 const ThoughtSchema = mongoose.Schema({
   text: String,
+}, {
+  timestamps: true
 });
 
 const UserThoughtsSchema = mongoose.Schema({

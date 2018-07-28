@@ -4,6 +4,9 @@ import { create, persist } from 'mobx-persist'
 class Thought {
   @persist @observable _id = ''
   @persist @observable text = ''
+  @persist @observable createdAt = ''
+  @persist @observable updatedAt = ''
+
 }
 
 class ThoughtsStore  {
@@ -11,7 +14,9 @@ class ThoughtsStore  {
   @persist('list', Thought) @observable thoughts = [];
 
   @action initalizeThoughts = (thoughts) => {
-    thoughts.reverse()
+    thoughts.sort((a, b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt)
+    })
     this.thoughts = thoughts
   }
 
@@ -35,10 +40,11 @@ class ThoughtsStore  {
     }  
   }
 
-  @action replaceThought = (thoughtId, text) => {
+  @action replaceThought = (thoughtId, text, updatedAt) => {
     for (let i = 0; i < this.thoughts.length; i++) {
       if (this.thoughts[i]._id === thoughtId) {
         this.thoughts[i].text = text;
+        this.thoughts[i].updatedAt = updatedAt;
       }
     }
   }

@@ -33,12 +33,12 @@ class Edit extends Component {
 
   handleSubmit = async () => {
     const { handleCancel, thoughtsStore: { replaceThought }, userStore: { id }, match: { params: { thoughtId } } } = this.props;
-    const { data: { thought: { text } } } = await axios.put(`${process.env.REACT_APP_REST_SERVER_URL}/api/thought`, {
+    const { data: { thought: { text, updatedAt } } } = await axios.put(`${process.env.REACT_APP_REST_SERVER_URL}/api/thought`, {
       thoughtId,
       userId: id,
       text: this.state.thought
     });
-    replaceThought(thoughtId, text);
+    replaceThought(thoughtId, text, updatedAt);
     this.handleCancel();
   }
 

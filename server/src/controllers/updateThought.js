@@ -7,6 +7,7 @@ export const updateThought = async (req, res) => {
     const userThoughts = await UserThoughts.findById(req.body.userId)
     const thought = userThoughts.thoughts.id(req.body.thoughtId)
     thought.text = req.body.text;
+    thought.updatedAt = new Date()
     userThoughts.save();
     console.log('here is thought after update', thought)
     return res.status(200).json({

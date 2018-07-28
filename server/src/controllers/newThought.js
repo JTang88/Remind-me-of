@@ -6,7 +6,9 @@ export const newThought = async (req, res) => {
     const userThoughts = await UserThoughts.findById(req.body._id)
     const thought = {
       text: req.body.text,
-      _id: new mongoose.Types.ObjectId
+      _id: new mongoose.Types.ObjectId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
     userThoughts.thoughts.push(thought)
     await userThoughts.save();

@@ -37,6 +37,7 @@ class Add extends Component {
       _id: id,
       text: this.state.thought,
     });
+    console.log('here is new thought', thought)
     addThought(thought);
     this.handleCancel();
   }

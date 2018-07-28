@@ -91,7 +91,7 @@ class Thoughts extends Component {
                   <ListItem key={thought._id} divider button className={listItemRoot}>
                     <div>
                       <Typography className={timeStamp} gutterBottom variant='subheading'>
-                        {getTimeStamp(thought._id)}
+                        {new Date(thought.updatedAt).toLocaleString()}
                       </Typography>
                       <ListItemText className={listItmeTextRoot} primary={thought.text} />
                       <IconButton className={editButton} onClick={() => this.handleEdit(thought._id)}>
