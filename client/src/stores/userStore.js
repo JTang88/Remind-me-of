@@ -1,7 +1,15 @@
 import { observable, action } from 'mobx'
 import { create, persist } from 'mobx-persist'
 
+class Thought {
+  @persist @observable _id = ''
+  @persist @observable text = ''
+  @persist @observable createdAt = ''
+  @persist @observable updatedAt = ''
+}
+
 class UserStore {
+  @persist('list', Thought) @observable thoughts = [];
   @persist @observable name = ''
   @persist @observable id = ''
   @persist @observable pictureURL = ''
@@ -10,6 +18,38 @@ class UserStore {
     this.name = name
     this.id = id
     this.pictureURL = url
+  }
+
+  @action initalizeThoughts = (thoughts) => {
+    thoughts.sort((a, b) => {
+      return new Date(b.updatedAt) - new Date(a.updatedAt)
+    })
+    this.thoughts = thoughts
+  }
+
+  @action deleteThought = (thoughtId) => {
+    for (let i = 0; i < this.thoughts.length; i++) {
+      if (this.thoughts[i]._id === thoughtId) {
+        this.thoughts.splice(i, 1)
+      }
+    }
+  }
+
+  @action addThought = (thought) => {
+    this.thoughts.unshift(thought)
+  }
+
+  @action getThought = (thoughtId) => {
+    for (let i = 0; i < this.thoughts.length; i++) {
+      if (this.thoughts[i]._id === thoughtId) {
+        return this.thoughts[i].text
+      }
+    }
+  }
+
+  @action replaceThought = (thought) => {
+    this.deleteThought(thought._id)
+    this.addThought(thought)
   }
 
 }

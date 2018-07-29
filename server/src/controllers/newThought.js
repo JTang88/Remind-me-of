@@ -1,17 +1,18 @@
-import UserThoughts from '../db/models/UserThoughts';
+import User from '../db/models/User';
 import mongoose from 'mongoose';
 
 export const newThought = async (req, res) => {
   try {
-    const userThoughts = await UserThoughts.findById(req.body._id)
+    const user = await User.findById(req.body._id)
     const thought = {
       text: req.body.text,
       _id: new mongoose.Types.ObjectId,
+      lastSent: new Date(new Date().getTime() - (24 * 60 * 60 * 1000)),
       createdAt: new Date(),
       updatedAt: new Date(),
     }
-    userThoughts.thoughts.push(thought)
-    await userThoughts.save();
+    user.thoughts.push(thought)
+    await user.save();
     res.status(200).json({
       sucess: true,
       thought,

@@ -13,7 +13,7 @@ const styles = {
   },
 }
 
-const Login = ({ thoughtsStore: { initalizeThoughts }, userStore: { insertUserInfo }, history, location, classes: { title } }) => {
+const Login = ({ userStore: { initalizeThoughts }, userStore: { insertUserInfo }, history, location, classes: { title } }) => {
 
   const responseFacebook = async (response) => {
     insertUserInfo(response);
@@ -76,4 +76,4 @@ const Login = ({ thoughtsStore: { initalizeThoughts }, userStore: { insertUserIn
 
 const LoginWithStyles = withStyles(styles)(Login);
 
-export default inject('userStore', 'thoughtsStore')(observer(LoginWithStyles));
+export default inject('userStore', 'userStore')(observer(LoginWithStyles));

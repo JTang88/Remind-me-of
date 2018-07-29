@@ -1,14 +1,14 @@
-import UserThoughts from '../db/models/UserThoughts';
+import User from '../db/models/User';
 
 export const updateThought = async (req, res) => {
   try {
     console.log('here is userId', req.body.userId)
     console.log('here is  req.body.text', req.body.text)
-    const userThoughts = await UserThoughts.findById(req.body.userId)
-    const thought = userThoughts.thoughts.id(req.body.thoughtId)
+    const user = await User.findById(req.body.userId)
+    const thought = user.thoughts.id(req.body.thoughtId)
     thought.text = req.body.text;
     thought.updatedAt = new Date()
-    userThoughts.save();
+    user.save();
     console.log('here is thought after update', thought)
     return res.status(200).json({
       sucess: true,

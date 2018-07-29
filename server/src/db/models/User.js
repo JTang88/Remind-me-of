@@ -1,13 +1,23 @@
 import mongoose from 'mongoose';
-import timestamps from 'mongoose-timestamp';
+
+const ThoughtSchema = mongoose.Schema({
+  text: String,
+  lastSent: Date,
+}, {
+    timestamps: true
+});
 
 const UserSchema = mongoose.Schema({
   _id: {
     type: String,
   },
+  thoughts: [ThoughtSchema],
+  lastTexted: Date,
+  from: Number,
+  to: Number,
+  freq: Number,
 });
 
-UserSchema.plugin(timestamps);
 const User = mongoose.model('User', UserSchema);
 
 

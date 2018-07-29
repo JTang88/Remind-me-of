@@ -13,12 +13,12 @@ const styles = {
   }
 }
 
-@inject('userStore', 'thoughtsStore')
+@inject('userStore')
 @observer
 
 class Edit extends Component {
   state = {
-    thought: this.props.thoughtsStore.getThought(this.props.match.params.thoughtId),
+    thought: this.props.userStore.getThought(this.props.match.params.thoughtId),
   }
 
   handleChange = (e) => {
@@ -32,13 +32,13 @@ class Edit extends Component {
   }
 
   handleSubmit = async () => {
-    const { handleCancel, thoughtsStore: { replaceThought }, userStore: { id }, match: { params: { thoughtId } } } = this.props;
-    const { data: { thought: { text, updatedAt } } } = await axios.put(`${process.env.REACT_APP_REST_SERVER_URL}/api/thought`, {
+    const { userStore: { replaceThought }, userStore: { id }, match: { params: { thoughtId } } } = this.props;
+    const { data: { thought } } = await axios.put(`${process.env.REACT_APP_REST_SERVER_URL}/api/thought`, {
       thoughtId,
       userId: id,
       text: this.state.thought
     });
-    replaceThought(thoughtId, text, updatedAt);
+    replaceThought(thought);
     this.handleCancel();
   }
 

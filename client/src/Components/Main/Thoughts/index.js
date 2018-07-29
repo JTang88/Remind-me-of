@@ -12,7 +12,6 @@ import {
   Typography, 
 } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
-import { getTimeStamp } from '../../../lib/index';
 import './index.css';
 
 
@@ -51,7 +50,7 @@ const styles = {
   }
 }
 
-@inject('thoughtsStore', 'userStore')
+@inject('userStore')
 @observer
 
 class Thoughts extends Component {
@@ -70,12 +69,12 @@ class Thoughts extends Component {
         userId: this.props.userStore.id
       }
     }); 
-    this.props.thoughtsStore.deleteThought(thoughtId);
+    this.props.userStore.deleteThought(thoughtId);
   }
 
   render () {
     const { 
-      thoughtsStore: { thoughts }, 
+      userStore: { thoughts }, 
       classes: { paperRoot, timeStamp, root, listItmeTextRoot, listItemRoot, deleteButton, editButton } 
     } = this.props;
     return (

@@ -1,9 +1,15 @@
-export const getTimeStamp = (_id) => {
-  const timestamp = _id.toString().substring(0, 8)
-  const date = new Date(parseInt(timestamp, 16) * 1000);
-  return `${date.getMonth()}/${date.getDate()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
+export const times = () => {
+  const result = []
+  for (let i = 0; i < 24; i++) {
+    result.push(i);
+  }
+  return result;
 }
 
-
-
-
+export const hours = () => {
+  const result = []
+  for (let i = 2; i <= 24; i++) {
+    result.push(i);
+  }
+  return result;
+}
