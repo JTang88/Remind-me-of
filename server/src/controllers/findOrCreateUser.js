@@ -22,6 +22,7 @@ export const findOrCreateUser =  async (req, res) => {
       }).save();
       return res.status(200).json({
         sucess: true,
+        thoughts,
         from: 8,
         to: 20,
         freq: 3,

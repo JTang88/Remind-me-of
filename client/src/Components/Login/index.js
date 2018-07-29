@@ -13,18 +13,16 @@ const styles = {
   },
 }
 
-const Login = ({ userStore: { initalizeThoughts }, userStore: { insertUserInfo }, history, location, classes: { title } }) => {
+const Login = ({ userStore: { initalizeUser }, userStore: { insertUserInfo }, history, location, classes: { title } }) => {
 
   const responseFacebook = async (response) => {
     insertUserInfo(response);
     localStorage.setItem('authenticated', 'true')
-    const { data: { thoughts } } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/fetch-user`, {
+    const { data } = await axios.post(`${process.env.REACT_APP_REST_SERVER_URL}/api/fetch-user`, {
       _id: response.id,
     });
-    console.log('here are thoughts', thoughts)
-    if (thoughts) {
-      initalizeThoughts(thoughts)
-    } 
+    console.log('here is the whole data', data)
+    initalizeUser(data)
     if (location.from) {
       history.push(`${location.from}`);
     } else {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
 import { Button, Typography, FormControl, MenuItem, Select, InputLabel, withStyles } from '@material-ui/core';
 import axios from 'axios';
 import { times, hours } from '../../../lib'
@@ -19,31 +20,37 @@ const styles = {
   }
 }
 
+@inject('userStore')
+@observer
+
 class Reminds extends Component {
   state = {
-    from: 8,
-    to: 20,
-    freq: 5,
+    from: '',
+    to: '',
+    freq: '',
   }
 
-  handleChange = (e) => {
-    this.setState({
+  handleChange = async (e) => {
+    await this.setState({
       [e.target.name]: e.target.value,
     })
+    console.log('here is state', this.state)
   }
 
   handleSubmit = async () => {
-    const { from, to, freq } = this.state
+    const { id: _id, updateReminds, from, to, freq } = this.props.userStore;
     const { data } = await axios.put(`${process.env.REACT_APP_REST_SERVER_URL}/api/reminds`, {
-      from,
-      to,
-      freq,
+      _id,
+      from: this.state.from !== '' ? this.state.from : from,
+      to: this.state.to !== '' ? this.state.to : to,
+      freq: this.state.freq !== '' ? this.state.freq : freq,
     }); 
-    console.log('here is data in Reminds', data); 
+    console.log('here is data', data)
+    updateReminds(data)
   }
 
   render = () => {
-    const { classes: { typoRoot, root, button } } = this.props;
+    const { classes: { typoRoot, root, button }, userStore: { from, to, freq } } = this.props;
     return (
       <div>
         <Typography align='center' variant='title' gutterBottom className={typoRoot}> 
@@ -52,7 +59,7 @@ class Reminds extends Component {
         <FormControl className={root}>
           <InputLabel htmlFor="from">FROM</InputLabel>
           <Select
-            value={this.state.from}
+            value={this.state.from !== '' ? this.state.from : from}
             onChange={this.handleChange}
             inputProps={{
               name: 'from',
@@ -70,13 +77,12 @@ class Reminds extends Component {
                  }
                })
             }
-            <MenuItem value={1}></MenuItem>
           </Select>
         </FormControl> 
         <FormControl className={root}>
           <InputLabel htmlFor="to">TO</InputLabel>
           <Select
-            value={this.state.to}
+            value={this.state.to !== '' ? this.state.to: to}
             onChange={this.handleChange}
             inputProps={{
               name: 'to',
@@ -94,14 +100,13 @@ class Reminds extends Component {
                 }
               })
             }
-            <MenuItem value={1}></MenuItem>
           </Select>
         </FormControl>
         <Typography align='center' variant='title' gutterBottom className={typoRoot}>
           Please don't send me text messages more than once per
         </Typography>
         <Select
-          value={this.state.freq}
+          value={this.state.freq !== '' ? this.state.freq : freq}
           onChange={this.handleChange}
           inputProps={{
             name: 'freq',
@@ -111,7 +116,7 @@ class Reminds extends Component {
           <MenuItem value={1}>1 hour</MenuItem>
           {
             hours().map(hour => 
-              <MenuItem value={hour}>{hour} hours</MenuItem>
+              <MenuItem key={`hour${hour}`} value={hour}>{hour} hours</MenuItem>
             )
           }
         </Select>

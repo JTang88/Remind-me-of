@@ -13,6 +13,14 @@ class UserStore {
   @persist @observable name = ''
   @persist @observable id = ''
   @persist @observable pictureURL = ''
+  @persist @observable from = ''
+  @persist @observable to = ''
+  @persist @observable freq = ''
+
+
+  @action updateProp = (propName, newProp) => {
+    this[propName] = newProp;
+  }
 
   @action insertUserInfo = ({ name, id, picture: { data: { url } } }) => {
     this.name = name
@@ -20,7 +28,10 @@ class UserStore {
     this.pictureURL = url
   }
 
-  @action initalizeThoughts = (thoughts) => {
+  @action initalizeUser = ({ thoughts, from, to, freq }) => {
+    this.from = from
+    this.to = to
+    this.freq = freq
     thoughts.sort((a, b) => {
       return new Date(b.updatedAt) - new Date(a.updatedAt)
     })
@@ -52,6 +63,12 @@ class UserStore {
     this.addThought(thought)
   }
 
+  @action updateReminds = ({ from, to, freq }) => {
+    console.log('here are info', from, to, freq)
+    this.from = from
+    this.to = to
+    this.freq = freq
+  }
 }
 
 const hydrate = create({
@@ -62,8 +79,8 @@ const hydrate = create({
 // create the state
 const userStore = new UserStore()
 
-export default userStore;
-
 hydrate('userStore', userStore)
   // post hydration
   .then(() => console.log('userStore hydrated'))
+
+export default userStore;
