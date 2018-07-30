@@ -11,6 +11,7 @@ const UserSchema = mongoose.Schema({
   _id: {
     type: String,
   },
+  phone: String,
   thoughts: [ThoughtSchema],
   lastTexted: Date,
   from: Number,
