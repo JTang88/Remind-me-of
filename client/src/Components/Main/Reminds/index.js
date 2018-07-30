@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Button, Typography, FormControl, MenuItem, Select, InputLabel, withStyles } from '@material-ui/core';
+import { Button, Typography, FormControl, MenuItem, Select, InputLabel, TextField, withStyles, InputAdornment } from '@material-ui/core';
 import axios from 'axios';
 import { times, hours } from '../../../lib'
 
@@ -17,6 +17,9 @@ const styles = {
   button: {
     margin: 40,
     color: 'white'
+  },
+  textField: {
+    margin: 'auto',
   }
 }
 
@@ -28,6 +31,7 @@ class Reminds extends Component {
     from: '',
     to: '',
     freq: '',
+    phone: ''
   }
 
   handleChange = async (e) => {
@@ -38,19 +42,20 @@ class Reminds extends Component {
   }
 
   handleSubmit = async () => {
-    const { id: _id, updateReminds, from, to, freq } = this.props.userStore;
+    const { id: _id, updateReminds, from, to, freq, phone } = this.props.userStore;
     const { data } = await axios.put(`${process.env.REACT_APP_REST_SERVER_URL}/api/reminds`, {
       _id,
       from: this.state.from !== '' ? this.state.from : from,
       to: this.state.to !== '' ? this.state.to : to,
       freq: this.state.freq !== '' ? this.state.freq : freq,
+      phone: this.state.phone !== '' ? this.state.phone : phone,
     }); 
     console.log('here is data', data)
     updateReminds(data)
   }
 
   render = () => {
-    const { classes: { typoRoot, root, button }, userStore: { from, to, freq } } = this.props;
+    const { classes: { typoRoot, root, button, textField }, userStore: { from, to, freq, phone } } = this.props;
     return (
       <div>
         <Typography align='center' variant='title' gutterBottom className={typoRoot}> 
@@ -120,6 +125,22 @@ class Reminds extends Component {
             )
           }
         </Select>
+        <Typography align='center' variant='title' gutterBottom className={typoRoot}>
+          Text me at this number
+        </Typography>
+        <div>
+          <TextField
+            id="phone"
+            name="phone"
+            className={textField}
+            value={this.state.phone !== '' ? this.state.phone : phone}
+            onChange={this.handleChange}
+            margin="normal"
+            InputProps={{
+              startAdornment: <InputAdornment position="start">+1</InputAdornment>,
+            }}
+          />
+        </div>
         <div>
           <Button className={button} size='large' variant='contained' color='primary' onClick={this.handleSubmit}>
             Submit

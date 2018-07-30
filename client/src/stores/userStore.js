@@ -16,6 +16,8 @@ class UserStore {
   @persist @observable from = ''
   @persist @observable to = ''
   @persist @observable freq = ''
+  @persist @observable phone = ''
+
 
 
   @action updateProp = (propName, newProp) => {
@@ -28,14 +30,19 @@ class UserStore {
     this.pictureURL = url
   }
 
-  @action initalizeUser = ({ thoughts, from, to, freq }) => {
+  @action initalizeUser = ({ thoughts, phone, from, to, freq }) => {
     this.from = from
     this.to = to
     this.freq = freq
-    thoughts.sort((a, b) => {
-      return new Date(b.updatedAt) - new Date(a.updatedAt)
-    })
-    this.thoughts = thoughts
+
+    if (thoughts) {
+      thoughts.sort((a, b) => {
+        return new Date(b.updatedAt) - new Date(a.updatedAt)
+      })
+      this.thoughts = thoughts
+    }
+
+    this.phone = phone
   }
 
   @action deleteThought = (thoughtId) => {
@@ -63,11 +70,12 @@ class UserStore {
     this.addThought(thought)
   }
 
-  @action updateReminds = ({ from, to, freq }) => {
+  @action updateReminds = ({ from, to, freq, phone }) => {
     console.log('here are info', from, to, freq)
     this.from = from
     this.to = to
     this.freq = freq
+    this.phone = phone
   }
 }
 
