@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import router from './routes';
 import './db';
+import './services/sendText';
+
 
 const app = express();
 const port = 3112 || process.env.PORT;
@@ -16,6 +18,8 @@ app.use(cors({
 app.use('/api', router);
 
 app.listen(port, () => console.log(`rest-server listening on port ${port}`));
+
+
 
 
 
