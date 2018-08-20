@@ -61,7 +61,7 @@ const Login = ({ userStore: { initalizeUser }, userStore: { insertUserInfo }, hi
       <div className='login-box'>
         <div className="face-login-wrap">
           <FacebookLogin
-            appId="237618007038254"
+            appId={process.env.REACT_APP_FACEBOOK_APP_ID}
             fields="name,email,picture.width(120).height(120)"
             callback={responseFacebook}
           />

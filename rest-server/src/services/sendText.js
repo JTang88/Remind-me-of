@@ -5,6 +5,9 @@ const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_ACCESS_
 
 const hours = [3800000, 7200000, 10800000]
 
+// const hours = [38000, 72000, 10800]
+
+
 const randomPick = (array) => {
   return array[Math.floor(Math.random() * array.length)]
 }
