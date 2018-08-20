@@ -22,7 +22,7 @@ yarn setup
 yarn env development
 ```
 
-* Before starting ther application, go to https://www.twilio.com/ to get a sid, a token and a phone number, and then go to https://developers.facebook.com/ to get a appId. Lastly go to client/.env insert them where they belongs to client/.env insert where they belongs
+* Before starting ther application, go to https://www.twilio.com/ to get a sid, a token and a phone number, and then go to https://developers.facebook.com/ to get a appId. Lastly go to the .env files in both client and rest-server folder and insert them where they belong.
 
 * Start the application
 
